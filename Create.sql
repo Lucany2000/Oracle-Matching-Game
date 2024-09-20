@@ -1,0 +1,49 @@
+-- CREATE TABLES --
+
+--Luca Celentano
+CREATE TABLE ARTIST (
+    ARTIST_ID NUMBER Primary Key,
+    ARTIST_NAME VARCHAR(255)
+);
+
+--Richardson
+CREATE TABLE SONG (
+    SONG_ID NUMBER Primary Key,
+    SONG_NAME VARCHAR(255),
+    ARTIST_ID NUMBER,
+    GENRE VARCHAR(255),
+    RELEASE_DATE DATE,
+    FOREIGN KEY(ARTIST_ID) REFERENCES ARTIST(ARTIST_ID) ON DELETE CASCADE
+);
+
+--Matt
+CREATE TABLE ALBUM(
+    album_id number PRIMARY KEY,
+    album_name VARCHAR(255),
+    artist_id NUMBER,
+    RELEASE_DATE DATE,
+    FOREIGN KEY(ARTIST_ID) REFERENCES ARTIST(ARTIST_ID) ON DELETE CASCADE
+);
+
+CREATE TABLE ALBUM_SONG(
+    album_id NUMBER,
+    song_id NUMBER,    
+    FOREIGN KEY(album_id) REFERENCES ALBUM(album_id) ON DELETE CASCADE,
+    FOREIGN KEY(song_id) REFERENCES SONG(song_id) ON DELETE CASCADE,
+    PRIMARY KEY(album_id, song_id) 
+);
+
+
+--Alla
+CREATE TABLE PLAYLIST (
+    playlist_id Number Primary Key,
+    PLAYLIST_NAME VARCHAR(255) UNIQUE
+);
+
+CREATE TABLE PLAYLIST_ITEM(
+    playlist_id Number,
+    song_id Number,  
+    FOREIGN KEY(playlist_id) REFERENCES PLAYLIST(playlist_id) ON DELETE CASCADE,
+    FOREIGN KEY(song_id) REFERENCES SONG(SONG_ID) ON DELETE CASCADE,
+    PRIMARY KEY(playlist_id, song_id)
+);
